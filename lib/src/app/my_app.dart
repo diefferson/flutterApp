@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/src/app/app_navigation_observer.dart';
+import 'package:flutter_app/src/ui/login/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key, this.appFlavor}) : super(key: key);
@@ -12,9 +13,16 @@ class MyApp extends StatelessWidget {
     print('Actual flavor: $appFlavor');
     return MaterialApp(
       title: 'MyApp',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue[800],
+        accentColor: Colors.cyan[600],
+      ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: onGenerateRoute,
-      navigatorObservers: [AppNavigationObserver()],
+      navigatorObservers: [
+        AppNavigationObserver(),
+      ],
     );
   }
 
@@ -36,8 +44,7 @@ class MyApp extends StatelessWidget {
 
   //Routes that will called from native app
   Map<String, WidgetBuilder> get routes => {
-        "/": (context) => Container(
-              color: Colors.amber,
-            ),
+        "/": (context) => Container(color: Colors.transparent),
+        "/login": (context) => LoginScreen(),
       };
 }

@@ -7,7 +7,7 @@ class AppNavigationObserver extends NavigatorObserver {
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
-    if (previousRoute.settings.name == '/') {
+    if (previousRoute.isFirst) {
       SystemNavigator.pop(animated: true);
     }
   }
