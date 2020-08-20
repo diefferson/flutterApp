@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/src/app/app_navigation_observer.dart';
-import 'package:flutter_app/src/ui/login/login_screen.dart';
+import 'package:flutter_app/src/ui/bottom_sheet_screen.dart';
+import 'package:flutter_app/src/ui/full_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key, this.appFlavor}) : super(key: key);
@@ -19,7 +20,12 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.cyan[600],
       ),
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: onGenerateRoute,
+      initialRoute: "/",
+      routes: {
+        "/": (context) => Container(color: Colors.transparent),
+        "/fullScreen": (context) => FullScreen(),
+        "/bottomSheet": (context) => BottomSheetScreen(),
+      },
       navigatorObservers: [
         AppNavigationObserver(),
       ],
@@ -31,20 +37,4 @@ class MyApp extends StatelessWidget {
     Navigator.of(context).popUntil((route) => route.isFirst);
     SystemNavigator.pop(animated: true);
   }
-
-  RouteFactory get onGenerateRoute => (RouteSettings settings) {
-        return PageRouteBuilder(
-          pageBuilder: (context, anim1, anim2) =>
-              routes[settings.name](context),
-          transitionsBuilder: (context, anim1, anim2, child) =>
-              FadeTransition(opacity: anim1, child: child),
-          transitionDuration: Duration(milliseconds: 300),
-        );
-      };
-
-  //Routes that will called from native app
-  Map<String, WidgetBuilder> get routes => {
-        "/": (context) => Container(color: Colors.transparent),
-        "/login": (context) => LoginScreen(),
-      };
 }
