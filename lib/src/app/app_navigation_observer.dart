@@ -1,5 +1,6 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+import 'my_app.dart';
 
 class AppNavigationObserver extends NavigatorObserver {
   @override
@@ -8,7 +9,7 @@ class AppNavigationObserver extends NavigatorObserver {
   @override
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
     if (previousRoute.isFirst) {
-      SystemNavigator.pop(animated: true);
+      MyApp.closeFlutter();
     }
   }
 

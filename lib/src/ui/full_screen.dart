@@ -12,7 +12,7 @@ class FullScreen extends StatelessWidget {
         color: Colors.blue,
         child: SafeArea(
           child: Stack(
-            children: [
+            children: const [
               Center(
                 child: Text('Exemplo de FullSreen no fluter'),
               ),

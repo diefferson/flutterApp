@@ -12,6 +12,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter:
     sdk: flutter
+  analyzer: '>=0.38.5 <0.40.0'
+  dart_style: '>=1.2.9 <1.4.0'
 
 dev_dependencies:
   flutter_test:

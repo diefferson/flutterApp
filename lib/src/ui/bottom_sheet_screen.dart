@@ -1,34 +1,39 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/app/my_app.dart';
 
 class BottomSheetScreen extends StatefulWidget {
-  BottomSheetScreen({Key key}) : super(key: key);
+  const BottomSheetScreen({Key key}) : super(key: key);
 
   @override
   _BottomSheetScreenState createState() => _BottomSheetScreenState();
 }
 
 class _BottomSheetScreenState extends State<BottomSheetScreen> {
-  @override
-  void initState() {
-    super.initState();
+  var isShowedBottomSheet = false;
 
+  void showBottomSheet(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _showBottomSheet(context);
-      closeScreen();
+      setState(() {
+        isShowedBottomSheet = true;
+      });
     });
   }
 
-  void closeScreen() {
-    MyApp.finish(context);
+  Future closeScreen() async {
+    Timer(const Duration(milliseconds: 500), () {
+      MyApp.finish(context);
+    });
   }
 
   Future _showBottomSheet(BuildContext context) async {
-    return showModalBottomSheet(
+    return showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.white,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
@@ -37,7 +42,7 @@ class _BottomSheetScreenState extends State<BottomSheetScreen> {
       builder: (context) {
         return Container(
           height: 300,
-          child: Center(
+          child: const Center(
             child: Text(
               'Exemplo bottom sheet',
               style: TextStyle(color: Colors.black),
@@ -50,6 +55,12 @@ class _BottomSheetScreenState extends State<BottomSheetScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (!isShowedBottomSheet) {
+      showBottomSheet(context);
+    } else {
+      closeScreen();
+    }
+
     return Container(color: Colors.transparent);
   }
 }

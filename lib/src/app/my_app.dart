@@ -20,11 +20,11 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.cyan[600],
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: '/',
       routes: {
-        "/": (context) => Container(color: Colors.transparent),
-        "/fullScreen": (context) => FullScreen(),
-        "/bottomSheet": (context) => BottomSheetScreen(),
+        '/': (context) => Container(color: Colors.transparent),
+        '/fullScreen': (context) => const FullScreen(),
+        '/bottomSheet': (context) => const BottomSheetScreen(),
       },
       navigatorObservers: [
         AppNavigationObserver(),
@@ -33,8 +33,13 @@ class MyApp extends StatelessWidget {
   }
 
   //Method to close flutter anywhere
-  static void finish(BuildContext context) {
+  static Future finish(BuildContext context) async {
     Navigator.of(context).popUntil((route) => route.isFirst);
-    SystemNavigator.pop(animated: true);
+    closeFlutter();
+  }
+
+  static void closeFlutter() {
+    const baseChanel = MethodChannel('diefferson.androidapp.base_channel');
+    baseChanel.invokeMethod<void>('close_flutter');
   }
 }
