@@ -1,0 +1,31 @@
+  
+name: CI
+
+on: 
+  pull_request:
+    branches: 
+      - master
+    
+jobs:
+  test:
+    name: Flutter Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2.3.0
+    - uses: subosito/flutter-action@v1.3.2
+      with:
+        channel: 'stable'
+    - name: get packages
+      run: flutter pub get
+    
+    - name: Flutter Test
+      run: flutter test --coverage --coverage-path ../coverage/lcov.info
+    
+    - name: Flutter Analyze
+      run: flutter analyze
+       
+    - name: Flutter format
+      run: flutter format --dry-run --set-exit-if-changed .
+      
+   
