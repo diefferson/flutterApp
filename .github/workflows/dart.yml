@@ -19,8 +19,8 @@ jobs:
     - name: get packages
       run: flutter pub get
     
-    - name: Flutter Test
-      run: flutter test --coverage --coverage-path ../coverage/lcov.info
+    #- name: Flutter Test
+      #run: flutter test --coverage --coverage-path ../coverage/lcov.info
     
     - name: Flutter Analyze
       run: flutter analyze
